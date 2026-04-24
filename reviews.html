@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StayEase. Reviews</title>
+
+  <link rel="stylesheet" href="css/reviews.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+  <main class="container">
+
+    <section class="hotel-header">
+      <div class="hotel-info">
+        <h2>The Grand Stay Plaza</h2>
+        <p class="rating">⭐ 4.9 / 5 · Based on reviews</p>
+      </div>
+
+      <img 
+        src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500" 
+        class="hotel-img" 
+        alt="Hotel Image"
+      >
+    </section>
+
+    <div class="reviews-layout">
+
+      <div class="reviews-left">
+
+        <div class="review-card big">
+          <h3>Sarah Ahmed</h3>
+          <div class="stars">★★★★★</div>
+          <p>
+            Amazing experience! The service was excellent and the rooms were very clean.
+          </p>
+        </div>
+
+        <div class="review-grid">
+          <div class="review-card small">
+            <h4>Great Stay</h4>
+            <div class="stars">★★★★★</div>
+          </div>
+
+          <div class="review-card small">
+            <h4>Loved It</h4>
+            <div class="stars">★★★★☆</div>
+          </div>
+
+          <div class="review-card small">
+            <h4>Very Clean</h4>
+            <div class="stars">★★★★★</div>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <h2>Share Your Experience</h2>
+
+          <form action="php/reviews.php?action=submit" method="POST">
+            <input type="hidden" name="hotel_id" value="1">
+
+            <label>Your Rating</label>
+            <select name="rating" required>
+              <option value="">Choose rating</option>
+              <option value="5">★★★★★</option>
+              <option value="4">★★★★☆</option>
+              <option value="3">★★★☆☆</option>
+              <option value="2">★★☆☆☆</option>
+              <option value="1">★☆☆☆☆</option>
+            </select>
+
+            <label>Your Review</label>
+            <textarea name="comment" placeholder="Tell us about your stay..." required></textarea>
+
+            <button type="submit">Submit Review</button>
+          </form>
+        </div>
+
+      </div>
+
+      <div class="reviews-right">
+        <div class="recommend-card">
+          <h3>Highly Recommended</h3>
+          <p>95% of guests recommend this hotel.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+</body>
+</html>
