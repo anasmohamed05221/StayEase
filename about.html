@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>About StayEase</title>
+
+
+    <link rel="stylesheet" href="css/about.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">StayEase.</div>
+
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="search-results.html">Search</a>
+            <a href="reviews.html">Reviews</a>
+        </div>
+
+        <div class="account-links">
+            <a href="dashboard.html">Account</a>
+            <a class="login-btn" href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <main class="page">
+
+        <!-- ✅ SUCCESS MESSAGE (FIXED) -->
+        <div id="successMessage" class="success-message">
+            Message sent successfully! We will contact you soon.
+        </div>
+
+        <!-- HEADER -->
+        <section class="hotel-card">
+            <div>
+                <h1>About StayEase.</h1>
+                <p>
+                    StayEase is a modern hotel discovery and booking platform that helps users explore hotels,
+                    compare rooms, book stays, and share real guest reviews.
+                </p>
+
+                <div class="rating-row">
+                    <span class="rating-badge">6 Member Project</span>
+                    <span>HTML · CSS · PHP · MySQL</span>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=500" alt="Hotel">
+        </section>
+
+        <!-- MISSION -->
+        <section class="content-grid">
+            <div class="main-review">
+                <h2>Our Mission</h2>
+                <p>
+                    Our mission is to make hotel booking simple, fast, and reliable by giving users clear
+                    hotel information, smooth booking steps, and trusted customer feedback.
+                </p>
+            </div>
+
+            <aside class="recommend-card">
+                <h3>Why StayEase?</h3>
+                <p>
+                    Clean design, easy search, room booking, dashboard, and reviews in one simple platform.
+                </p>
+                <div class="progress">
+                    <div></div>
+                </div>
+            </aside>
+        </section>
+
+        <!-- TEAM -->
+        <section class="form-card">
+            <h2>Meet Our Team</h2>
+
+            <div class="team-grid">
+
+                <div class="team-card">
+                    <img src="assets/images/member1.jpg">
+                    <h3>Anas Mohamed</h3>
+                    <p>Authentication</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="assets/images/member2.jpg">
+                    <h3>Mohsen Mohamed</h3>
+                    <p>Home & Search</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="assets/images/member3.jpg">
+                    <h3>Mohamed Jameel</h3>
+                    <p>Hotels & Rooms</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="assets/images/member4.jpg">
+                    <h3>Tarek Elsayed</h3>
+                    <p>Booking</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="assets/images/member5.jpg">
+                    <h3>Yassin Abdullah</h3>
+                    <p>User Dashboard</p>
+                </div>
+
+                <div class="team-card">
+                    <img src="assets/images/member6.jpg">
+                    <h3>Ahmed Tarig</h3>
+                    <p>Reviews & About</p>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT -->
+        <section class="form-card">
+            <h2>Contact Us</h2>
+
+            <form action="php/about.php" method="POST">
+
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                </div>
+
+                <textarea name="message" placeholder="Write your message..." required></textarea>
+
+                <button type="submit">Send Message</button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">StayEase.</div>
+        <p>© 2024 StayEase. All rights reserved.</p>
+    </footer>
+
+    <!-- ✅ SCRIPT (FIXED) -->
+    <script>
+        const params = new URLSearchParams(window.location.search);
+
+        if (params.get("success") === "1") {
+            document.getElementById("successMessage").style.display = "block";
+        }
+    </script>
+
+</body>
+
+</html>
