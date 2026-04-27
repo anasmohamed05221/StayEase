@@ -10,13 +10,27 @@
     <!-- Jakarta fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
     <!-- Custom CSS -->
+     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/auth.css">
 </head>
 
 <body>
-    <header>
-        <a href="index.html" class="logo">StayEase.</a>
-    </header>
+    <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="logo">StayEase<span>.</span></a>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="search-results.html">Discover</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+      </div>
+      <div class="nav-auth">
+        <a href="dashboard.html" class="profile-icon"><i class="fa-regular fa-circle-user"></i></a>
+        <a href="login.html" class="btn-login">Login</a>
+      </div>
+    </div>
+  </nav>
+
     <div class="page-content">
         <div class="form-container">
             <h2>Welcome Back</h2>

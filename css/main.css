@@ -80,8 +80,7 @@ img { display: block; max-width: 100%; }
   transition: all 0.2s ease;
 }
  
-.nav-links a:hover,
-.nav-links a.active {
+.nav-links a:hover {
   color: var(--white);
   background: rgba(255,255,255,0.12);
 }
@@ -104,6 +103,11 @@ img { display: block; max-width: 100%; }
 }
  
 .nav-auth a:hover { color: var(--white); }
+
+.nav-auth a.profile-icon {
+  font-size: 22px;
+  line-height: 1;
+}
  
 .btn-login {
   border: 1.5px solid rgba(255,255,255,0.6) !important;

@@ -1,38 +1,10 @@
-:root {
-  --primary:      #2563EB;
-  --primary-dark: #1D4ED8;
-  --primary-light:#EFF6FF;
-  --bg:           #EEF2F7;
-  --white:        #FFFFFF;
-  --gray-input:   #F1F5F9;
-  --gray-border:  #E2E8F0;
-  --text:         #0F172A;
-  --muted:        #64748B;
-  --success:      #16A34A;
-  --danger:       #DC2626;
-  --radius-sm:    8px;
-  --radius-md:    12px;
-  --radius-lg:    20px;
-  --shadow: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
     font-family: 'Plus Jakarta Sans', sans-serif;
-    background: var(--bg);
+    background: #fcfcfc;
     color: var(--text);
     display:block;
     min-height:100vh;
     margin: 0px;
-}
-
-header {
-    width: 100%;
-    background: var(--primary);
-    padding: 16px 32px;
-    position: static;
-    z-index: 1000;
 }
 
 .logo {
