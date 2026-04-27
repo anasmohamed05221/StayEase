@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>StayEase. | Booking</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/booking.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="logo">StayEase.</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="search-results.html">Hotels</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="login.html">Login</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="card">
+      <span class="badge">Booking</span>
+      <h1>Book Your Room</h1>
+      <p>
+        Enter the room ID you want to book. The system will show the room details before confirmation.
+      </p>
+
+      <form action="php/booking.php" method="get">
+        <input type="hidden" name="action" value="show">
+
+        <label for="room_id">Room ID</label>
+        <input type="number" id="room_id" name="room_id" required>
+
+        <button type="submit">Continue Booking</button>
+      </form>
+    </section>
+  </main>
+
+</body>
+</html>
