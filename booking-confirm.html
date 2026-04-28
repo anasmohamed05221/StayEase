@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StayEase. | Booking Confirmed</title>
+  <title>StayEase - Booking Confirmation</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/booking.css">
@@ -11,22 +11,115 @@
 
   <nav class="navbar">
     <div class="logo">StayEase.</div>
+
     <div class="nav-links">
-      <a href="index.html">Home</a>
+      <a href="booking.html">Book Now</a>
       <a href="dashboard.html">Dashboard</a>
-      <a href="my-bookings.html">My Bookings</a>
+      <a href="admin.html">Admin</a>
     </div>
   </nav>
 
   <main class="container">
-    <section class="card success-card">
-      <span class="success-icon">✓</span>
-      <h1>Booking Confirmed</h1>
-      <p>Your booking was created successfully.</p>
 
-      <a class="button-link" href="dashboard.html">Go to Dashboard</a>
-      <a class="secondary-link" href="my-bookings.html">View My Bookings</a>
+    <section class="success-card">
+      <span class="success-icon">✓</span>
+      <h1>Booking Confirmed!</h1>
+      <p>Your reservation is all set. We have sent a confirmation email to you.</p>
+      <span class="badge">Booking ID: SE-99201-B</span>
     </section>
+
+    <section class="booking-page-layout">
+
+      <div class="booking-main">
+
+        <section class="card room-preview-card">
+          <img src="assets/images/room.jpg" alt="Room Image" class="room-image">
+
+          <div class="room-info">
+            <span class="badge">Confirmed</span>
+            <h2>Executive Skyline Suite</h2>
+            <p>The Grand Stay Plaza, New York</p>
+
+            <div class="detail-row">
+              <span>Check-in</span>
+              <strong>Mon, Oct 14, 2026</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Check-out</span>
+              <strong>Fri, Oct 18, 2026</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Guests</span>
+              <strong>2 Guests</strong>
+            </div>
+
+            <div class="detail-row">
+              <span>Room Type</span>
+              <strong>1 King Bed</strong>
+            </div>
+
+            <div class="price-box">
+              Total Amount Paid: $840.00
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <aside class="booking-sidebar">
+
+        <section class="card">
+          <h2>Host Information</h2>
+          <p><strong>Sarah Jenkins</strong></p>
+          <p>Concierge Manager</p>
+
+          <a href="#" class="button-link">Contact Host</a>
+        </section>
+
+        <section class="card">
+          <h2>Payment Details</h2>
+
+          <div class="detail-row">
+            <span>$195.00 x 4 nights</span>
+            <strong>$780.00</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Cleaning Fee</span>
+            <strong>$40.00</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Service Fee</span>
+            <strong>$20.00</strong>
+          </div>
+
+          <div class="price-box">
+            Total Paid: $840.00
+          </div>
+
+          <a href="#" class="secondary-link">Download PDF Receipt</a>
+        </section>
+
+        <a href="my-bookings.html" class="button-link">View My Bookings</a>
+
+      </aside>
+
+    </section>
+
+    <section class="card">
+      <h2>Travel Information</h2>
+      <p>The hotel is 15 minutes from JFK Airport by taxi or express shuttle.</p>
+
+      <h2>Modify Stay</h2>
+      <p>Changes can be made up to 24 hours before check-in through the dashboard.</p>
+
+      <h2>Safe Stay</h2>
+      <p>We follow all health and safety protocols to ensure a comfortable visit.</p>
+    </section>
+
   </main>
 
 </body>

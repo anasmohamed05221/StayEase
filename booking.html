@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StayEase. | Booking</title>
+  <title>StayEase - Booking</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/booking.css">
@@ -11,31 +11,113 @@
 
   <nav class="navbar">
     <div class="logo">StayEase.</div>
+
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="search-results.html">Hotels</a>
+      <a href="index.html">Book Now</a>
       <a href="dashboard.html">Dashboard</a>
-      <a href="login.html">Login</a>
+      <a href="admin.html">Admin</a>
     </div>
   </nav>
 
   <main class="container">
-    <section class="card">
-      <span class="badge">Booking</span>
-      <h1>Book Your Room</h1>
-      <p>
-        Enter the room ID you want to book. The system will show the room details before confirmation.
-      </p>
 
-      <form action="php/booking.php" method="get">
-        <input type="hidden" name="action" value="show">
+    <a href="search-results.html" class="secondary-link">← Back to Search</a>
 
-        <label for="room_id">Room ID</label>
-        <input type="number" id="room_id" name="room_id" required>
+    <section class="booking-page-layout">
 
-        <button type="submit">Continue Booking</button>
-      </form>
+      <div class="booking-main">
+
+        <section class="card room-preview-card">
+          <div class="room-preview">
+            <img src="assets/images/room.jpg" alt="Room Image" class="room-image">
+
+            <div class="room-info">
+              <span class="badge">Premium Suite</span>
+              <h1>Executive City View Suite</h1>
+              <p>The Grand Stay Plaza, New York City</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="card">
+          <h2>1. Select Dates</h2>
+
+          <form action="php/booking.php" method="post">
+            <input type="hidden" name="action" value="book">
+
+            <label for="room_id">Room ID</label>
+            <input type="number" id="room_id" name="room_id" required>
+
+            <label for="check_in">Check-in Date</label>
+            <input type="date" id="check_in" name="check_in" required>
+
+            <label for="check_out">Check-out Date</label>
+            <input type="date" id="check_out" name="check_out" required>
+
+            <h2>2. Guest Information</h2>
+
+            <label for="first_name">First Name</label>
+            <input type="text" id="first_name" name="first_name" placeholder="John" required>
+
+            <label for="last_name">Last Name</label>
+            <input type="text" id="last_name" name="last_name" placeholder="Doe" required>
+
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
+
+            <label for="guests">Guests</label>
+            <input type="number" id="guests" name="guests" value="2" min="1" required>
+
+            <label for="requests">Special Requests</label>
+            <input type="text" id="requests" name="requests" placeholder="High floor, early check-in, etc.">
+
+            <button type="submit">Confirm & Pay Now</button>
+          </form>
+        </section>
+
+      </div>
+
+      <aside class="booking-sidebar">
+
+        <section class="card">
+          <h2>Price Summary</h2>
+
+          <div class="detail-row">
+            <span>Room Price</span>
+            <strong>$1,225.00</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Cleaning Fee</span>
+            <strong>$45.00</strong>
+          </div>
+
+          <div class="detail-row">
+            <span>Service Fee</span>
+            <strong>$152.40</strong>
+          </div>
+
+          <div class="price-box">
+            Total: $1,422.40
+          </div>
+
+          <button type="submit" form="">Confirm & Pay Now</button>
+
+          <p>Free cancellation until Nov 12, 2026</p>
+        </section>
+
+        <section class="card">
+          <h2>Secure Payment</h2>
+          <p>Encrypted corporate-grade processing.</p>
+
+          <h2>24/7 Support</h2>
+          <p>Concierge assistance for all bookings.</p>
+        </section>
+
+      </aside>
+
     </section>
+
   </main>
 
 </body>
