@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StayEase. | Hotel Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/hotels.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="logo" href="index.html">StayEase.</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="search-results.html">Search</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <section class="hotel-hero" id="hotelHero">
+      <div class="hero-overlay">
+        <span class="pill">Hotel details</span>
+        <h1 id="hotelName">Loading hotel...</h1>
+        <p id="hotelDescription">Please wait while we load the hotel information.</p>
+        <div class="hero-actions">
+          <a class="btn btn-light" id="reviewsLink" href="reviews.html">View Reviews</a>
+          <a class="btn btn-outline-light" href="search-results.html">Back to Search</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-grid" aria-label="Hotel information">
+      <article class="info-card">
+        <span class="card-label">City</span>
+        <strong id="hotelCity">—</strong>
+      </article>
+      <article class="info-card">
+        <span class="card-label">Location</span>
+        <strong id="hotelLocation">—</strong>
+      </article>
+      <article class="info-card">
+        <span class="card-label">Hotel stars</span>
+        <strong class="stars" id="hotelStars">—</strong>
+      </article>
+      <article class="info-card review-card">
+        <span class="card-label">Guest rating</span>
+        <strong id="hotelRating">—</strong>
+      </article>
+    </section>
+
+    <section class="section-header">
+      <div>
+        <span class="section-kicker">Available rooms</span>
+        <h2>Choose the room that matches your stay</h2>
+      </div>
+      <p>Room cards are loaded from the database using the hotel_id in the URL.</p>
+    </section>
+
+    <section class="rooms-grid" id="roomsGrid">
+      <div class="loading-card">Loading available rooms...</div>
+    </section>
+
+    <section class="empty-state hidden" id="emptyState">
+      <h3>No rooms found</h3>
+      <p>This hotel currently has no rooms saved in the database.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <p>StayEase. Hotel Discovery & Booking Platform</p>
+      <span>Member 3 — Hotels & Rooms</span>
+    </div>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const hotelId = params.get('hotel_id') || '1';
+
+    const hotelHero = document.getElementById('hotelHero');
+    const hotelName = document.getElementById('hotelName');
+    const hotelDescription = document.getElementById('hotelDescription');
+    const hotelCity = document.getElementById('hotelCity');
+    const hotelLocation = document.getElementById('hotelLocation');
+    const hotelStars = document.getElementById('hotelStars');
+    const hotelRating = document.getElementById('hotelRating');
+    const reviewsLink = document.getElementById('reviewsLink');
+    const roomsGrid = document.getElementById('roomsGrid');
+    const emptyState = document.getElementById('emptyState');
+
+    reviewsLink.href = `reviews.html?hotel_id=${encodeURIComponent(hotelId)}`;
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatPrice(value) {
+      return `$${Number(value || 0).toFixed(2)}`;
+    }
+
+    function makeStars(stars) {
+      const value = Math.max(0, Math.min(5, Number(stars || 0)));
+      return '★'.repeat(value) + '☆'.repeat(5 - value);
+    }
+
+    function setHeroImage(path) {
+      if (path) {
+        const cleanPath = String(path).replace(/'/g, "%27");
+        hotelHero.style.backgroundImage = `linear-gradient(90deg, rgba(15,23,42,.84), rgba(15,23,42,.38)), url('${cleanPath}')`;
+      }
+    }
+
+    function renderRooms(rooms) {
+      roomsGrid.innerHTML = '';
+
+      if (!rooms || rooms.length === 0) {
+        emptyState.classList.remove('hidden');
+        return;
+      }
+
+      emptyState.classList.add('hidden');
+
+      rooms.forEach((room) => {
+        const available = Number(room.is_available) === 1;
+        const card = document.createElement('article');
+        card.className = 'room-card';
+
+        card.innerHTML = `
+          <div class="room-image-wrap">
+            ${room.image ? `<img src="${escapeHtml(room.image)}" alt="${escapeHtml(room.name)}">` : `<div class="image-placeholder">Room Image</div>`}
+            <span class="status-badge ${available ? 'available' : 'unavailable'}">
+              ${available ? 'Available' : 'Unavailable'}
+            </span>
+          </div>
+          <div class="room-content">
+            <div class="room-title-row">
+              <h3>${escapeHtml(room.name)}</h3>
+              <span>${escapeHtml(room.type)}</span>
+            </div>
+            <p>${escapeHtml(room.description || 'Comfortable room prepared for a clean StayEase booking experience.')}</p>
+            <div class="room-bottom">
+              <div>
+                <span class="price-label">Price / night</span>
+                <strong>${formatPrice(room.price_per_night)}</strong>
+              </div>
+              <a class="btn btn-primary" href="room-detail.html?room_id=${encodeURIComponent(room.id)}">View Room</a>
+            </div>
+          </div>
+        `;
+
+        roomsGrid.appendChild(card);
+      });
+    }
+
+    async function loadHotel() {
+      try {
+        const response = await fetch(`php/hotels.php?action=hotel&hotel_id=${encodeURIComponent(hotelId)}`);
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || 'Hotel not found.');
+        }
+
+        const hotel = data.hotel;
+        hotelName.textContent = hotel.name;
+        hotelDescription.textContent = hotel.description || 'No description is currently available for this hotel.';
+        hotelCity.textContent = hotel.city || '—';
+        hotelLocation.textContent = hotel.location || '—';
+        hotelStars.textContent = makeStars(hotel.stars);
+        hotelRating.textContent = `${Number(hotel.average_rating || 0).toFixed(1)} / 5 (${hotel.review_count || 0} reviews)`;
+        setHeroImage(hotel.image);
+        renderRooms(data.rooms || []);
+      } catch (error) {
+        hotelName.textContent = 'Hotel could not be loaded';
+        hotelDescription.textContent = error.message;
+        roomsGrid.innerHTML = `<div class="error-card">${escapeHtml(error.message)}</div>`;
+      }
+    }
+
+    loadHotel();
+  </script>
+</body>
+</html>

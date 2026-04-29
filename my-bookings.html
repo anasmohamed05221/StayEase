@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings | StayEase</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS file -->
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="index.php" class="logo">StayEase.</a>
+
+            <div class="nav-links">
+                <a href="index.php">Home</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="search-results.php">Browse Hotels</a>
+                <a href="my-bookings.html" class="active">My Bookings</a>
+                <a href="php/auth.php?action=logout" class="logout-btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-page">
+
+        <!-- Page Header -->
+        <section class="bookings-header">
+            <div>
+                <p class="small-label">My Reservations</p>
+                <h1>My Bookings</h1>
+                <p class="welcome-text">
+                    View all your hotel bookings, check their status, and cancel upcoming reservations.
+                </p>
+            </div>
+
+            <a href="search-results.php" class="primary-btn">Browse Hotels</a>
+        </section>
+
+        <!-- Message Box -->
+        <div id="messageBox"></div>
+
+        <!-- Bookings Table -->
+        <section class="table-card">
+            <div class="section-header">
+                <p class="small-label">Booking List</p>
+                <h2>All Bookings</h2>
+            </div>
+
+            <div class="table-responsive">
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Hotel Name</th>
+                            <th>Room Name</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="bookingsTableBody">
+                        <tr>
+                            <td colspan="7" class="empty-table">Loading bookings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- JavaScript: write it here before closing body -->
+    <script>
+        function loadBookings() {
+            fetch("php/user.php?action=bookings")
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(data) {
+
+                    if (!data.logged_in) {
+                        window.location.href = "login.html";
+                        return;
+                    }
+
+                    var tableBody = document.getElementById("bookingsTableBody");
+                    tableBody.innerHTML = "";
+
+                    if (!data.bookings || data.bookings.length === 0) {
+                        tableBody.innerHTML =
+                            '<tr><td colspan="7" class="empty-table">No bookings found.</td></tr>';
+                        return;
+                    }
+
+                    data.bookings.forEach(function(booking) {
+
+                        var cancelButton = "";
+
+                        if (booking.can_cancel) {
+                            cancelButton =
+                                '<button class="cancel-btn" onclick="cancelBooking(' + booking.id + ')">Cancel</button>';
+                        } else {
+                            cancelButton =
+                                '<span class="no-action">Not Available</span>';
+                        }
+
+                        var row = document.createElement("tr");
+
+                        row.innerHTML =
+                            '<td><span class="hotel-name">' + booking.hotel_name + '</span></td>' +
+                            '<td><span class="room-name">' + booking.room_name + '</span></td>' +
+                            '<td>' + booking.check_in + '</td>' +
+                            '<td>' + booking.check_out + '</td>' +
+                            '<td><span class="price">$' + booking.total_price + '</span></td>' +
+                            '<td><span class="status-badge status-' + booking.status + '">' + booking.status + '</span></td>' +
+                            '<td>' + cancelButton + '</td>';
+
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(function(error) {
+                    console.log(error);
+
+                    document.getElementById("bookingsTableBody").innerHTML =
+                        '<tr><td colspan="7" class="empty-table">Error loading bookings.</td></tr>';
+                });
+        }
+
+        function cancelBooking(bookingId) {
+            var confirmCancel = confirm("Are you sure you want to cancel this booking?");
+
+            if (!confirmCancel) {
+                return;
+            }
+
+            var formData = new FormData();
+            formData.append("booking_id", bookingId);
+
+            fetch("php/user.php?action=cancel", {
+                method: "POST",
+                body: formData
+            })
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+
+                var messageBox = document.getElementById("messageBox");
+
+                if (!data.logged_in) {
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                if (data.success) {
+                    messageBox.innerHTML =
+                        '<div class="alert alert-success">Booking cancelled successfully.</div>';
+
+                    loadBookings();
+                } else {
+                    messageBox.innerHTML =
+                        '<div class="alert alert-error">' + data.message + '</div>';
+                }
+            })
+            .catch(function(error) {
+                console.log(error);
+
+                document.getElementById("messageBox").innerHTML =
+                    '<div class="alert alert-error">Error cancelling booking.</div>';
+            });
+        }
+
+        loadBookings();
+    </script>
+
+</body>
+</html>

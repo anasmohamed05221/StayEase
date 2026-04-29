@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StayEase. | Room Details</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/hotels.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <a class="logo" href="index.html">StayEase.</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="search-results.html">Search</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="page-container">
+    <section class="room-detail-layout">
+      <div class="room-gallery" id="roomImageBox">
+        <span class="status-badge available" id="availabilityBadge">Loading</span>
+        <div class="image-placeholder large">Room Image</div>
+      </div>
+
+      <article class="room-main-card">
+        <span class="pill blue">Room details</span>
+        <h1 id="roomName">Loading room...</h1>
+        <p class="hotel-line" id="hotelLine">Please wait while we load the room information.</p>
+
+        <div class="room-meta-grid">
+          <div>
+            <span class="card-label">Room type</span>
+            <strong id="roomType">—</strong>
+          </div>
+          <div>
+            <span class="card-label">Price / night</span>
+            <strong id="roomPrice">—</strong>
+          </div>
+          <div>
+            <span class="card-label">Hotel stars</span>
+            <strong class="stars" id="hotelStars">—</strong>
+          </div>
+          <div>
+            <span class="card-label">City</span>
+            <strong id="hotelCity">—</strong>
+          </div>
+        </div>
+
+        <div class="description-box">
+          <h2>Description</h2>
+          <p id="roomDescription">—</p>
+        </div>
+
+        <div class="action-row">
+          <a class="btn btn-outline" id="hotelLink" href="hotel-detail.html">Back to Hotel</a>
+          <a class="btn btn-primary" id="bookButton" href="#">Book This Room</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <p>StayEase. Hotel Discovery & Booking Platform</p>
+      <span>Member 3 — Hotels & Rooms</span>
+    </div>
+  </footer>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const roomId = params.get('room_id') || '1';
+
+    const roomImageBox = document.getElementById('roomImageBox');
+    const availabilityBadge = document.getElementById('availabilityBadge');
+    const roomName = document.getElementById('roomName');
+    const hotelLine = document.getElementById('hotelLine');
+    const roomType = document.getElementById('roomType');
+    const roomPrice = document.getElementById('roomPrice');
+    const hotelStars = document.getElementById('hotelStars');
+    const hotelCity = document.getElementById('hotelCity');
+    const roomDescription = document.getElementById('roomDescription');
+    const hotelLink = document.getElementById('hotelLink');
+    const bookButton = document.getElementById('bookButton');
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function formatPrice(value) {
+      return `$${Number(value || 0).toFixed(2)}`;
+    }
+
+    function makeStars(stars) {
+      const value = Math.max(0, Math.min(5, Number(stars || 0)));
+      return '★'.repeat(value) + '☆'.repeat(5 - value);
+    }
+
+    function renderRoom(room) {
+      const available = Number(room.is_available) === 1;
+
+      roomName.textContent = room.name;
+      hotelLine.textContent = `${room.hotel_name} • ${room.city} • ${room.location}`;
+      roomType.textContent = room.type || '—';
+      roomPrice.textContent = formatPrice(room.price_per_night);
+      hotelStars.textContent = makeStars(room.stars);
+      hotelCity.textContent = room.city || '—';
+      roomDescription.textContent = room.description || 'No description is currently available for this room.';
+      hotelLink.href = `hotel-detail.html?hotel_id=${encodeURIComponent(room.hotel_id)}`;
+
+      availabilityBadge.textContent = available ? 'Available' : 'Unavailable';
+      availabilityBadge.className = `status-badge ${available ? 'available' : 'unavailable'}`;
+
+      if (room.image) {
+        roomImageBox.innerHTML = `
+          <img src="${escapeHtml(room.image)}" alt="${escapeHtml(room.name)}">
+          <span class="status-badge ${available ? 'available' : 'unavailable'}">${available ? 'Available' : 'Unavailable'}</span>
+        `;
+      }
+
+      if (available) {
+        bookButton.href = `booking.html?room_id=${encodeURIComponent(room.id)}`;
+        bookButton.classList.remove('disabled');
+        bookButton.textContent = 'Book This Room';
+      } else {
+        bookButton.href = '#';
+        bookButton.classList.add('disabled');
+        bookButton.textContent = 'Room Unavailable';
+      }
+    }
+
+    async function loadRoom() {
+      try {
+        const response = await fetch(`php/hotels.php?action=room&room_id=${encodeURIComponent(roomId)}`);
+        const data = await response.json();
+
+        if (!data.success) {
+          throw new Error(data.message || 'Room not found.');
+        }
+
+        renderRoom(data.room);
+      } catch (error) {
+        roomName.textContent = 'Room could not be loaded';
+        hotelLine.textContent = error.message;
+        roomDescription.textContent = error.message;
+        bookButton.classList.add('disabled');
+        bookButton.href = '#';
+      }
+    }
+
+    loadRoom();
+  </script>
+</body>
+</html>

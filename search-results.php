@@ -41,12 +41,19 @@
           <p id="resultsSubtitle" style="font-size:14px; color:var(--muted); margin-top:4px;"></p>
         </div>
         <div class="sort-bar">
-          <label for="sortBy">Sort by:</label>
-          <select id="sortBy" name="sort">
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
-            <option value="rating">Top Rated</option>
-          </select>
+          <label>Sort by:</label>
+          <div class="custom-select" id="sortDropdown">
+            <div class="custom-select-trigger">
+              <?= $sort === 'price_desc' ? 'Price: High to Low' : ($sort === 'rating' ? 'Top Rated' : 'Price: Low to High') ?>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="custom-select-options">
+              <div class="custom-option <?= $sort === 'price_asc' ? 'selected' : '' ?>" data-value="price_asc">Price: Low to High</div>
+              <div class="custom-option <?= $sort === 'price_desc' ? 'selected' : '' ?>" data-value="price_desc">Price: High to Low</div>
+              <div class="custom-option <?= $sort === 'rating' ? 'selected' : '' ?>" data-value="rating">Top Rated</div>
+            </div>
+            <input type="hidden" name="sort" value="<?= htmlspecialchars($sort) ?>">
+          </div>
         </div>
       </div>
 
@@ -56,10 +63,10 @@
         <!-- ── FILTERS SIDEBAR ── -->
         <form id="filtersForm" method="GET" action="search-results.php">
           <!-- Carry over search params -->
-          <input type="hidden" name="city"      value="<?= htmlspecialchars($city) ?>">
-          <input type="hidden" name="check_in"  value="<?= htmlspecialchars($checkIn) ?>">
+          <input type="hidden" name="city" value="<?= htmlspecialchars($city) ?>">
+          <input type="hidden" name="check_in" value="<?= htmlspecialchars($checkIn) ?>">
           <input type="hidden" name="check_out" value="<?= htmlspecialchars($checkOut) ?>">
-          <input type="hidden" name="sort"      value="<?= htmlspecialchars($sort) ?>">
+          <input type="hidden" name="sort" value="<?= htmlspecialchars($sort) ?>">
 
           <aside class="filters-panel">
             <div class="filters-top">
@@ -81,11 +88,11 @@
             <div class="filter-group">
               <label class="group-label">Star Rating</label>
               <?php foreach ([5, 4, 3] as $s): ?>
-              <label class="checkbox-item">
-                <input type="checkbox" name="stars[]" value="<?= $s ?>"
-                  <?= (empty($starsFilter) || in_array($s, $starsFilter)) ? 'checked' : '' ?>>
-                <?= $s ?> Stars <span style="color:#F59E0B; margin-left:4px;">★</span>
-              </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" name="stars[]" value="<?= $s ?>"
+                    <?= (empty($starsFilter) || in_array($s, $starsFilter)) ? 'checked' : '' ?>>
+                  <?= $s ?> Stars <span style="color:#F59E0B; margin-left:4px;">★</span>
+                </label>
               <?php endforeach; ?>
             </div>
 
@@ -149,6 +156,33 @@
 
       </div>
       <!-- END results-layout -->
+
+      <?php if ($totalPages > 1):
+        $winStart = max(1, min($page - 1, $totalPages - 2));
+        $winEnd   = min($totalPages, $winStart + 2);
+      ?>
+        <div class="pagination">
+          <?php if ($page > 1): ?>
+            <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page - 1])) ?>">‹</a>
+          <?php else: ?>
+            <span class="pagination-disabled">‹</span>
+          <?php endif; ?>
+
+          <?php for ($p = $winStart; $p <= $winEnd; $p++): ?>
+            <?php if ($p === $page): ?>
+              <span><?= $p ?></span>
+            <?php else: ?>
+              <a href="?<?= http_build_query(array_merge($_GET, ['page' => $p])) ?>"><?= $p ?></a>
+            <?php endif; ?>
+          <?php endfor; ?>
+
+          <?php if ($page < $totalPages): ?>
+            <a href="?<?= http_build_query(array_merge($_GET, ['page' => $page + 1])) ?>">›</a>
+          <?php else: ?>
+            <span class="pagination-disabled">›</span>
+          <?php endif; ?>
+        </div>
+      <?php endif; ?>
 
     </div>
   </main>
