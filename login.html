@@ -8,7 +8,8 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <!-- Jakarta fonts-->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet" />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/auth.css">
@@ -16,20 +17,20 @@
 
 <body>
     <nav class="navbar">
-    <div class="container nav-inner">
-      <a href="index.php" class="logo">StayEase<span>.</span></a>
-      <div class="nav-links">
-        <a href="index.php" class="active">Home</a>
-        <a href="search-results.php">Discover</a>
-        <a href="about.html">About</a>
-        <a href="reviews.html">Reviews</a>
-      </div>
-      <div class="nav-auth">
-        <a href="dashboard.html" class="profile-icon"><i class="fa-regular fa-circle-user"></i></a>
-        <a href="login.html" class="btn-login">Login</a>
-      </div>
-    </div>
-  </nav>
+        <div class="container nav-inner">
+            <a href="index.php" class="logo">StayEase<span>.</span></a>
+            <div class="nav-links">
+                <a href="index.php" class="active">Home</a>
+                <a href="search-results.php">Discover</a>
+                <a href="about.html">About</a>
+                <a href="reviews.html">Reviews</a>
+            </div>
+            <div class="nav-auth">
+                <a href="dashboard.html" class="profile-icon"><i class="fa-regular fa-circle-user"></i></a>
+                <a href="login.html" class="btn-login">Login</a>
+            </div>
+        </div>
+    </nav>
 
     <div class="page-content">
         <div class="form-container">
@@ -45,21 +46,24 @@
 
                 <label>Password</label>
                 <div class="input-group">
-                    <i class="fa-solid fa-lock"></i> 
-                    <input type="password" name="password" placeholder="********" required>
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="********" required>
+                    <button type="button" class="toggle-password" data-target="password">
+                        <i class="fa-regular fa-eye"></i>
+                    </button>
                 </div>
-                
-                <div id="error-msg"></div>
+
+                <div id="msg"></div>
 
                 <button type="submit">
                     <i class="fa-solid fa-right-to-bracket"></i>
                     Login
                 </button>
-                
+
                 <input type="hidden" name="action" value="login">
 
             </form>
-            
+
             <div class="divider"></div>
 
             <div class="link">
