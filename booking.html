@@ -10,8 +10,14 @@
 
   <!-- StayEase font -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  
+  <!--Flatpickr calender-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
   <!-- External CSS file for booking and confirmation pages -->
+  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/booking.css">
 </head>
 
@@ -21,27 +27,21 @@
      StayEase Shared Header
      This header matches the home page / reference design.
      ===================================================== -->
-<header class="topbar">
-  <div class="topbar-inner">
-
-    <!-- Website logo / brand name -->
-    <a href="index.html" class="brand">StayEase.</a>
-
-    <!-- Main navigation links -->
-    <nav class="main-nav">
-      <a href="index.html">Book Now</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="my-bookings.html">Admin</a>
-    </nav>
-
-    <!-- Right side header icons -->
-    <div class="nav-icons">
-      <span>🔔</span>
-      <span>☻</span>
+<nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.php" class="logo">StayEase<span>.</span></a>
+      <div class="nav-links">
+        <a href="index.php" class="active">Home</a>
+        <a href="search-results.php">Discover</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+      </div>
+      <div class="nav-auth">
+        <a href="dashboard.html" class="profile-icon"><i class="fa-regular fa-circle-user"></i></a>
+        <a href="login.html" class="btn-login">Login</a>
+      </div>
     </div>
-
-  </div>
-</header>
+  </nav>
 
 <!-- =====================================================
      Main Booking Page
@@ -51,7 +51,7 @@
 <main class="booking-page">
 
   <!-- Back link to return to search or room results page -->
-  <a href="search-results.html" class="back-link">← Back to Search</a>
+  <a href="search-results.php" class="back-link">← Back to Search</a>
 
   <!-- Main layout: left side content + right side price card -->
   <section class="booking-grid">
@@ -75,7 +75,7 @@
 
         <!-- Section title -->
         <div class="step-title">
-          <div class="step-icon">📅</div>
+          <div class="step-icon"><i class="fa-solid fa-calendar-days"></i></div>
           <h2>1. Select Dates</h2>
         </div>
 
@@ -84,12 +84,12 @@
 
           <div class="field-group">
             <label for="checkIn">Check-in Date</label>
-            <input type="date" id="checkIn" name="check_in">
+            <input type="text" id="checkIn" name="check_in" placeholder="Select date" readonly>
           </div>
 
           <div class="field-group">
             <label for="checkOut">Check-out Date</label>
-            <input type="date" id="checkOut" name="check_out">
+            <input type="text" id="checkOut" name="check_out" placeholder="Select date" readonly>
           </div>
 
         </div>
@@ -100,7 +100,7 @@
 
         <!-- Section title -->
         <div class="step-title">
-          <div class="step-icon">👤</div>
+          <div class="step-icon"><i class="fa-solid fa-user-pen"></i></div>
           <h2>2. Guest Information</h2>
         </div>
 
@@ -194,7 +194,7 @@
         <!-- Submit button.
              It submits bookingForm even though it is outside the form tag. -->
         <button class="pay-btn" type="submit" form="bookingForm">
-          🔒 Confirm & Pay Now
+          <i class="fa-solid fa-check-double"></i> Confirm & Pay Now
         </button>
 
         <p class="cancel-note">Free cancellation until Nov 12, 2026</p>
@@ -204,7 +204,7 @@
       <section class="support-card">
 
         <div class="support-row">
-          <span class="support-icon green">✓</span>
+          <span class="support-icon green"><i class="fa-solid fa-shield-halved"></i></span>
           <div>
             <strong>Secure Payment</strong>
             <p>Encrypted corporate-grade processing</p>
@@ -212,7 +212,7 @@
         </div>
 
         <div class="support-row">
-          <span class="support-icon blue">☎</span>
+          <span class="support-icon blue"><i class="fa-solid fa-headset"></i></span>
           <div>
             <strong>24/7 Support</strong>
             <p>Concierge assistance for all bookings</p>
@@ -231,23 +231,20 @@
      StayEase Footer
      Same footer style used across the website.
      ===================================================== -->
-<footer class="footer">
-  <div class="footer-inner">
-
-    <div>
-      <strong>StayEase.</strong>
-      <p>© 2026 StayEase Corporate Travel & Hospitality Group.</p>
+<!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">StayEase</div>
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Help Center</a>
+        <a href="#">Partners</a>
+      </div>
+      <p class="footer-copy">© 2024 StayEase Inc. All rights reserved.</p>
     </div>
-
-    <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Support</a>
-      <a href="#">Contact Us</a>
-    </div>
-
-  </div>
-</footer>
+  </footer> 
 
 <!-- =====================================================
      Internal JavaScript
@@ -344,13 +341,12 @@
 
         <div class="room-info">
           <div class="room-badges">
-            <span class="badge">Premium Suite</span>
-            <span class="rating">★ 4.92 Reviews</span>
+            <span class="badge">${room.type}</span>
+            ${room.avg_rating ? `<span class="rating">★ ${room.avg_rating} Rating</span>` : ``}
           </div>
 
           <h1>${room.name}</h1>
-          <p class="location">📍 ${room.hotel_name}</p>
-          <p class="room-desc">${room.description || "A comfortable room prepared for your StayEase reservation."}</p>
+          <p class="location"><i class="fa-solid fa-location-dot"></i> &nbsp ${room.hotel_name}</p>
         </div>
       `;
 
@@ -384,6 +380,15 @@
   });
 
   loadRoom();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script>
+    flatpickr("#checkIn", {
+      minDate: "today"
+    });
+    flatpickr("#checkOut", {
+      minDate: "today"
+    });
 </script>
 
 </body>

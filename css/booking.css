@@ -1,65 +1,3 @@
-:root{
-  --blue:#2563eb;
-  --dark:#0f172a;
-  --text:#334155;
-  --muted:#64748b;
-  --bg:#eef2f7;
-  --card:#ffffff;
-  --border:#e2e8f0;
-  --green:#10b981;
-  --shadow:0 18px 45px rgba(15,23,42,.08);
-  --radius:22px;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:"Plus Jakarta Sans",sans-serif;
-  background:var(--bg);
-  color:var(--dark);
-}
-
-a{
-  text-decoration:none;
-  color:inherit;
-}
-
-.topbar{
-  background:var(--blue);
-  color:white;
-  padding:18px 0;
-}
-
-.topbar-inner{
-  width:min(1180px,92%);
-  margin:auto;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-}
-
-.brand{
-  font-size:26px;
-  font-weight:800;
-}
-
-.main-nav{
-  display:flex;
-  gap:32px;
-  font-weight:700;
-}
-
-.nav-icons{
-  display:flex;
-  gap:16px;
-  font-size:20px;
-}
-
 .booking-page,
 .confirm-page{
   width:min(1180px,92%);
@@ -88,6 +26,10 @@ a{
   gap:24px;
 }
 
+.info-item{
+color: var(--primary);
+}
+
 .room-card,
 .step-card,
 .price-card,
@@ -96,9 +38,9 @@ a{
 .host-card,
 .payment-card,
 .info-item{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:var(--radius);
+  background:var(--white);
+  border:1px solid var(--gray-border);
+  border-radius:var(--radius-lg);
   box-shadow:var(--shadow);
 }
 
@@ -131,8 +73,8 @@ a{
 .rating,
 .confirmed-badge,
 .booking-pill{
-  background:#eff6ff;
-  color:var(--blue);
+  background:#d3e6ff;
+  color:var(--primary);
   padding:8px 13px;
   border-radius:999px;
   font-size:13px;
@@ -145,8 +87,12 @@ a{
 }
 
 .room-info h1{
-  font-size:30px;
+  font-size:20px;
   margin-bottom:10px;
+}
+
+.cancel-note{
+  text-align: center;
 }
 
 .location,
@@ -166,26 +112,26 @@ a{
 .host-card,
 .payment-card,
 .info-item{
-  padding:26px;
+  padding:20px;
 }
 
 .step-title{
   display:flex;
   align-items:center;
-  gap:14px;
-  margin-bottom:22px;
+  gap:12px;
+  margin-bottom:16px;
 }
 
 .step-icon,
 .success-circle,
 .host-avatar{
-  width:46px;
-  height:46px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   display:grid;
   place-items:center;
   background:#dbeafe;
-  color:var(--blue);
+  color:var(--primary);
   font-weight:900;
 }
 
@@ -213,9 +159,9 @@ label{
 
 input,
 select{
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:14px 15px;
+  border:1px solid var(--gray-border);
+  border-radius:var(--radius-sm);
+  padding:10px 14px;
   font:inherit;
   outline:none;
   background:#f8fafc;
@@ -223,12 +169,17 @@ select{
 
 input:focus,
 select:focus{
-  border-color:var(--blue);
+  border-color:var(--primary);
   background:white;
 }
 
+.right-column{
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
 .price-card{
-  position:sticky;
   top:24px;
 }
 
@@ -236,7 +187,7 @@ select:focus{
 .host-card h3,
 .payment-card h3{
   margin-bottom:20px;
-  font-size:22px;
+  font-size:18px;
 }
 
 .price-row,
@@ -245,40 +196,48 @@ select:focus{
   justify-content:space-between;
   align-items:center;
   padding:14px 0;
-  border-bottom:1px solid var(--border);
-  color:var(--text);
+  border-bottom:1px solid var(--gray-border);
+  color:var(--muted);
 }
 
 .total-row{
   border-bottom:0;
   font-size:20px;
   font-weight:900;
-  color:var(--dark);
+  color:var(--text);
 }
 
 .pay-btn,
 .light-btn,
 .view-bookings-btn{
+  display:block;
   width:100%;
   border:0;
-  border-radius:16px;
+  border-radius:var(--radius-md);
   padding:15px 18px;
   margin-top:18px;
   font-weight:900;
   font-size:15px;
+  font-family:inherit;
   cursor:pointer;
+  text-align:center;
+  text-decoration:none;
 }
 
 .pay-btn,
 .view-bookings-btn{
-  background:var(--blue);
+  background:var(--primary);
   color:white;
-  box-shadow:0 12px 25px rgba(37,99,235,.25);
+  box-shadow:0 8px 25px rgba(37,99,235,.25);
+}
+
+.pay-btn, .view-bookings-btn:hover{
+  background:var(--primary-dark);
 }
 
 .light-btn{
   background:#eff6ff;
-  color:var(--blue);
+  color:var(--primary);
 }
 
 .support-row,
@@ -296,7 +255,7 @@ select:focus{
 .support-icon{
   width:42px;
   height:42px;
-  border-radius:14px;
+  border-radius:var(--radius-sm);
   display:grid;
   place-items:center;
   font-weight:900;
@@ -309,7 +268,7 @@ select:focus{
 
 .blue{
   background:#dbeafe;
-  color:var(--blue);
+  color:var(--primary);
 }
 
 .error-message,
@@ -334,11 +293,13 @@ select:focus{
   margin:0 auto 18px;
   background:#d1fae5;
   color:#059669;
-  font-size:24px;
+  font-size:32px;
+  width:64px;
+  height:64px;
 }
 
 .success-head h1{
-  font-size:40px;
+  font-size:26px;
   margin-bottom:10px;
 }
 
@@ -353,7 +314,7 @@ select:focus{
 
 .confirm-image-wrap{
   position:relative;
-  height:310px;
+  height:280px;
 }
 
 .confirmed-badge{
@@ -372,11 +333,11 @@ select:focus{
   display:flex;
   justify-content:space-between;
   gap:20px;
-  margin-bottom:25px;
+  margin-bottom:32px;
 }
 
 .confirm-room-header h2{
-  font-size:28px;
+  font-size:18px;
   margin-bottom:8px;
 }
 
@@ -385,8 +346,8 @@ select:focus{
 }
 
 .confirm-price strong{
-  font-size:26px;
-  color:var(--blue);
+  font-size:20px;
+  color:var(--primary);
 }
 
 .confirm-price span{
@@ -399,15 +360,15 @@ select:focus{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:16px;
-  margin-bottom:22px;
+  margin-bottom:32px;
 }
 
 .stay-dates div,
 .amenities span{
   background:#f8fafc;
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:18px;
+  border:1px solid var(--gray-border);
+  border-radius:var(--radius-md);
+  padding:12px;
 }
 
 .stay-dates span{
@@ -433,8 +394,9 @@ select:focus{
 
 .receipt-link{
   display:block;
+  text-align: center;
   margin-top:16px;
-  color:var(--blue);
+  color:var(--primary);
   font-weight:900;
 }
 
@@ -449,34 +411,6 @@ select:focus{
   display:flex;
   gap:16px;
   align-items:flex-start;
-}
-
-.footer{
-  background:white;
-  border-top:1px solid var(--border);
-  padding:24px 0;
-}
-
-.footer-inner{
-  width:min(1180px,92%);
-  margin:auto;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  align-items:center;
-  color:var(--muted);
-  flex-wrap:wrap;
-}
-
-.footer-inner strong{
-  color:var(--dark);
-}
-
-.footer-links{
-  display:flex;
-  gap:20px;
-  flex-wrap:wrap;
-  font-weight:700;
 }
 
 @media(max-width:900px){
@@ -522,7 +456,7 @@ select:focus{
   }
 
   .success-head h1{
-    font-size:30px;
+    font-size:20px;
   }
 
   .room-info h1{
@@ -538,4 +472,12 @@ select:focus{
   .confirm-room-body{
     padding:20px;
   }
+}
+
+@media print {
+  nav, .navbar, footer, .footer, .confirm-side, .info-row, .receipt-link { display: none !important; }
+  body { background: white; }
+  .confirm-page { width: 100%; margin: 0; }
+  .confirm-grid { display: block; }
+  .confirm-main-card { box-shadow: none; border: none; }
 }

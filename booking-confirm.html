@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Basic page setup -->
   <meta charset="UTF-8" />
@@ -9,232 +10,230 @@
   <title>StayEase - Booking Confirmation</title>
 
   <!-- StayEase font -->
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <!-- External CSS file -->
+  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/booking.css">
+
 </head>
 
 <body>
 
-<!-- =====================================================
+  <!-- =====================================================
      StayEase Shared Header
-     Same header design used in booking.html.
+     This header matches the home page / reference design.
      ===================================================== -->
-<header class="topbar">
-  <div class="topbar-inner">
-
-    <!-- Website brand -->
-    <a href="index.html" class="brand">StayEase.</a>
-
-    <!-- Navigation links -->
-    <nav class="main-nav">
-      <a href="index.html">Book Now</a>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="my-bookings.html">Admin</a>
-    </nav>
-
-    <!-- Header icons -->
-    <div class="nav-icons">
-      <span>🔔</span>
-      <span>☻</span>
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="index.php" class="logo">StayEase<span>.</span></a>
+      <div class="nav-links">
+        <a href="index.php" class="active">Home</a>
+        <a href="search-results.php">Discover</a>
+        <a href="about.html">About</a>
+        <a href="reviews.html">Reviews</a>
+      </div>
+      <div class="nav-auth">
+        <a href="dashboard.html" class="profile-icon"><i class="fa-regular fa-circle-user"></i></a>
+        <a href="login.html" class="btn-login">Login</a>
+      </div>
     </div>
+  </nav>
 
-  </div>
-</header>
-
-<!-- =====================================================
+  <!-- =====================================================
      Booking Confirmation Page
      This page receives booking_id after booking is created.
      Example URL: booking-confirm.html?booking_id=12
      ===================================================== -->
-<main class="confirm-page">
+  <main class="confirm-page">
 
-  <!-- Success message at the top -->
-  <section class="success-head">
-    <div class="success-circle">✓</div>
-    <h1>Booking Confirmed!</h1>
-    <p>Your reservation is all set. We have saved your booking successfully.</p>
+    <!-- Success message at the top -->
+    <section class="success-head">
+      <div class="success-circle"><i class="fa-regular fa-circle-check"></i></div>
+      <h1>Booking Confirmed!</h1>
+      <p>Your reservation is all set. We have saved your booking successfully.</p>
 
-    <!-- Booking code is filled dynamically using booking_id -->
-    <span class="booking-pill">
-      Booking ID: <strong id="bookingCode">Loading...</strong>
-    </span>
-  </section>
+      <!-- Booking code is filled dynamically using booking_id -->
+      <span class="booking-pill">
+        Booking ID: <strong id="bookingCode">Loading...</strong>
+      </span>
+    </section>
 
-  <!-- Main confirmation layout -->
-  <section class="confirm-grid">
+    <!-- Main confirmation layout -->
+    <section class="confirm-grid">
 
-    <!-- Left side booking details.
+      <!-- Left side booking details.
          JavaScript fills this area with real booking data from PHP/database. -->
-    <div class="confirm-main-card" id="confirmMain">
-      <div class="loading-card">Loading booking confirmation...</div>
-    </div>
+      <div class="confirm-main-card" id="confirmMain">
+        <div class="loading-card">Loading booking confirmation...</div>
+      </div>
 
-    <!-- Right side confirmation cards -->
-    <aside class="confirm-side">
+      <!-- Right side confirmation cards -->
+      <aside class="confirm-side">
 
-      <!-- Host information card -->
-      <section class="host-card">
-        <h3>Host Information</h3>
+        <!-- Host information card -->
+        <section class="host-card">
+          <h3>Host Information</h3>
 
-        <div class="host-row">
-          <div class="host-avatar">S</div>
-          <div>
-            <strong>Sarah Jenkins</strong>
-            <p>Concierge Manager</p>
+          <div class="host-row">
+            <div class="host-avatar">S</div>
+            <div>
+              <strong>Sarah Jenkins</strong>
+              <p>Concierge Manager</p>
+            </div>
           </div>
+
+          <button class="light-btn"><i class="fa-regular fa-envelope"></i> &nbsp; Contact Host</button>
+        </section>
+
+        <!-- Payment details card -->
+        <section class="payment-card">
+          <h3>Payment Details</h3>
+
+          <div class="price-row">
+            <span>Room total</span>
+            <strong>$<span id="paymentBase">0.00</span></strong>
+          </div>
+
+          <div class="price-row">
+            <span>Cleaning fee</span>
+            <strong>$45.00</strong>
+          </div>
+
+          <div class="price-row">
+            <span>Service fee</span>
+            <strong>$<span id="paymentService">0.00</span></strong>
+          </div>
+
+          <div class="total-row">
+            <span>Total Paid</span>
+            <strong>$<span id="paymentTotal">0.00</span></strong>
+          </div>
+
+          <a href="#" class="receipt-link" onclick="window.print(); return false;"><i class="fa-solid fa-print"></i> &nbsp; Print Receipt</a>
+        </section>
+
+        <!-- Link to bookings/dashboard page -->
+        <a href="my-bookings.html" class="view-bookings-btn">View My Bookings</a>
+
+      </aside>
+
+    </section>
+
+    <!-- Extra information row matching the reference design -->
+    <section class="info-row">
+
+      <div class="info-item">
+        <span><i class="fa-solid fa-plane-departure"></i></span>
+        <div>
+          <strong>Travel Info</strong>
+          <p>The hotel is a short distance from the city center and airport routes.</p>
         </div>
-
-        <button class="light-btn">✉ Contact Host</button>
-      </section>
-
-      <!-- Payment details card -->
-      <section class="payment-card">
-        <h3>Payment Details</h3>
-
-        <div class="price-row">
-          <span>Room total</span>
-          <strong>$<span id="paymentBase">0.00</span></strong>
-        </div>
-
-        <div class="price-row">
-          <span>Cleaning fee</span>
-          <strong>$45.00</strong>
-        </div>
-
-        <div class="price-row">
-          <span>Service fee</span>
-          <strong>$<span id="paymentService">0.00</span></strong>
-        </div>
-
-        <div class="total-row">
-          <span>Total Paid</span>
-          <strong>$<span id="paymentTotal">0.00</span></strong>
-        </div>
-
-        <a href="#" class="receipt-link">⇩ Download PDF Receipt</a>
-      </section>
-
-      <!-- Link to bookings/dashboard page -->
-      <a href="my-bookings.html" class="view-bookings-btn">View My Bookings</a>
-
-    </aside>
-
-  </section>
-
-  <!-- Extra information row matching the reference design -->
-  <section class="info-row">
-
-    <div class="info-item">
-      <span>🚌</span>
-      <div>
-        <strong>Travel Info</strong>
-        <p>The hotel is a short distance from the city center and airport routes.</p>
       </div>
-    </div>
 
-    <div class="info-item">
-      <span>📅</span>
-      <div>
-        <strong>Modify Stay</strong>
-        <p>Changes can be managed through the dashboard before check-in.</p>
+      <div class="info-item">
+        <span><i class="fa-solid fa-calendar-check"></i></span>
+        <div>
+          <strong>Modify Stay</strong>
+          <p>Changes can be managed through the dashboard before check-in.</p>
+        </div>
       </div>
-    </div>
 
-    <div class="info-item">
-      <span>🛡</span>
-      <div>
-        <strong>Safe Stay</strong>
-        <p>StayEase follows health and safety protocols for a comfortable visit.</p>
+      <div class="info-item">
+        <span><i class="fa-solid fa-building-shield"></i></span>
+        <div>
+          <strong>Safe Stay</strong>
+          <p>StayEase follows health and safety protocols for a comfortable visit.</p>
+        </div>
       </div>
-    </div>
 
-  </section>
+    </section>
 
-</main>
+  </main>
 
-<!-- =====================================================
+  <!-- =====================================================
      StayEase Footer
+     Same footer style used across the website.
      ===================================================== -->
-<footer class="footer">
-  <div class="footer-inner">
-
-    <div>
-      <strong>StayEase.</strong>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">StayEase</div>
+      <div class="footer-links">
+        <a href="about.html">About Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Help Center</a>
+        <a href="#">Partners</a>
+      </div>
+      <p class="footer-copy">© 2024 StayEase Inc. All rights reserved.</p>
     </div>
+  </footer>
 
-    <div class="footer-links">
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-      <a href="#">Support</a>
-      <a href="#">Contact Us</a>
-    </div>
-
-    <p>© 2026 StayEase. Corporate Travel & Hospitality Group.</p>
-
-  </div>
-</footer>
-
-<!-- =====================================================
+  <!-- =====================================================
      Internal JavaScript
      This loads real booking confirmation data from booking.php.
      ===================================================== -->
-<script>
-  const params = new URLSearchParams(window.location.search);
-  const bookingId = params.get("booking_id");
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const bookingId = params.get("booking_id");
 
-  const confirmMain = document.getElementById("confirmMain");
-  const bookingCode = document.getElementById("bookingCode");
+    const confirmMain = document.getElementById("confirmMain");
+    const bookingCode = document.getElementById("bookingCode");
 
-  const paymentBase = document.getElementById("paymentBase");
-  const paymentService = document.getElementById("paymentService");
-  const paymentTotal = document.getElementById("paymentTotal");
+    const paymentBase = document.getElementById("paymentBase");
+    const paymentService = document.getElementById("paymentService");
+    const paymentTotal = document.getElementById("paymentTotal");
 
-  function calculateNights(checkIn, checkOut) {
-    const start = new Date(checkIn);
-    const end = new Date(checkOut);
-    return (end - start) / (1000 * 60 * 60 * 24);
-  }
-
-  async function loadBooking() {
-    if (!bookingId) {
-      confirmMain.innerHTML = `<div class="error-box">No booking ID found.</div>`;
-      bookingCode.textContent = "Not Found";
-      return;
+    function calculateNights(checkIn, checkOut) {
+      const start = new Date(checkIn);
+      const end = new Date(checkOut);
+      return (end - start) / (1000 * 60 * 60 * 24);
     }
 
-    try {
-      const response = await fetch(`php/booking.php?action=confirmation&booking_id=${encodeURIComponent(bookingId)}`);
-      const data = await response.json();
-
-      if (data.redirect) {
-        window.location.href = data.redirect;
-        return;
-      }
-
-      if (!data.success) {
-        confirmMain.innerHTML = `<div class="error-box">${data.message}</div>`;
+    async function loadBooking() {
+      if (!bookingId) {
+        confirmMain.innerHTML = `<div class="error-box">No booking ID found.</div>`;
         bookingCode.textContent = "Not Found";
         return;
       }
 
-      const b = data.booking;
+      try {
+        const response = await fetch(`php/booking.php?action=confirmation&booking_id=${encodeURIComponent(bookingId)}`);
+        const data = await response.json();
 
-      const nights = calculateNights(b.check_in, b.check_out);
-      const pricePerNight = parseFloat(b.price_per_night);
-      const base = nights * pricePerNight;
-      const cleaning = 45;
-      const service = base * 0.12;
-      const total = base + cleaning + service;
+        if (data.redirect) {
+          window.location.href = data.redirect;
+          return;
+        }
 
-      bookingCode.textContent = "SE-" + String(b.id).padStart(4, "0") + "-B";
+        if (!data.success) {
+          confirmMain.innerHTML = `<div class="error-box">${data.message}</div>`;
+          bookingCode.textContent = "Not Found";
+          return;
+        }
 
-      paymentBase.textContent = base.toFixed(2);
-      paymentService.textContent = service.toFixed(2);
-      paymentTotal.textContent = total.toFixed(2);
+        const b = data.booking;
 
-      confirmMain.innerHTML = `
+
+        const nights = calculateNights(b.check_in, b.check_out);
+        const pricePerNight = parseFloat(b.price_per_night);
+        const base = nights * pricePerNight;
+        const cleaning = 45;
+        const service = base * 0.12;
+        const total = base + cleaning + service;
+
+        bookingCode.textContent = b.id;
+
+        paymentBase.textContent = base.toFixed(2);
+        paymentService.textContent = service.toFixed(2);
+        paymentTotal.textContent = total.toFixed(2);
+
+        confirmMain.innerHTML = `
         <div class="confirm-image-wrap">
           <img src="${b.room_image || 'assets/images/room-placeholder.jpg'}" alt="Room image" class="confirm-image">
           <span class="confirmed-badge">Confirmed</span>
@@ -244,7 +243,7 @@
           <div class="confirm-room-header">
             <div>
               <h2>${b.room_name}</h2>
-              <p>📍 ${b.hotel_name}</p>
+              <p><i class="fa-solid fa-location-dot"></i> &nbsp ${b.hotel_name}</p>
             </div>
 
             <div class="confirm-price">
@@ -268,21 +267,22 @@
           </div>
 
           <div class="amenities">
-            <span>👥 2 Guests</span>
-            <span>🛏 1 King Bed</span>
-            <span>🛜 High-speed WiFi</span>
+            <span><i class="fa-solid fa-user-group"></i> 2 Guests</span>
+            <span><i class="fa-solid fa-bed"></i> 1 King Bed</span>
+            <span><i class="fa-solid fa-wifi"></i> High-speed WiFi</span>
           </div>
         </div>
       `;
 
-    } catch (error) {
-      confirmMain.innerHTML = `<div class="error-box">Could not load booking details.</div>`;
-      bookingCode.textContent = "Error";
+      } catch (error) {
+        confirmMain.innerHTML = `<div class="error-box">Could not load booking details.</div>`;
+        bookingCode.textContent = "Error";
+      }
     }
-  }
 
   loadBooking();
-</script>
+  </script>
 
 </body>
+
 </html>
