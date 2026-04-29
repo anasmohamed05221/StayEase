@@ -26,3 +26,25 @@ document.querySelectorAll('.toggle-password').forEach(btn => {
         }
     });
 });
+
+
+const emailInput = document.querySelector('input[type="email"]');
+const passwordInput = document.querySelector('input[type="password"]');
+const emailError = document.getElementById('email-error');
+const passwordError = document.getElementById('password-error');
+
+emailInput.addEventListener('blur', () => {
+    if (!emailInput.value.includes('@')) {
+        emailError.textContent = 'Please enter a valid email.';
+    } else {
+        emailError.textContent = '';
+    }
+});
+
+passwordInput.addEventListener('blur', () => {
+    if (passwordInput.value.length === 0) {
+        passwordError.textContent = 'Password is required.';
+    } else {
+        passwordError.textContent = '';
+    }
+});

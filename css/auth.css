@@ -39,7 +39,7 @@ body {
     font-weight: 700;
 }
 
-.form-container p {
+.form-subtitle {
     color: var(--muted);
     font-weight: 400;
     opacity: 0.7;
@@ -60,7 +60,7 @@ body {
 /* Input with icon */
 .input-group{
     position:relative;
-     margin-bottom: 24px;
+     margin-bottom: 16px;
 }
 
 .input-group i{
@@ -121,7 +121,7 @@ body {
 .strength-bar {
     display: flex;
     gap: 12px;
-    margin: -8px 0 16px;
+    margin: 8px 0 16px;
 }
 
 .strength-segment {
@@ -137,6 +137,15 @@ body {
     font-weight: 600;
     margin: -12px 0 28px;
     text-align: left;
+}
+
+.field-error {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--danger) !important;
+    text-align: left;
+    margin: -16px 0 16px;
+    padding-top: 8px;
 }
 
 /* Button */

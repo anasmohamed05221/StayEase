@@ -2,8 +2,14 @@ const params = new URLSearchParams(window.location.search);
 const error = params.get('error');
 const msg = document.getElementById('msg');
 
-if (error === 'mismatch') msg.textContent = 'Passwords do not match.';
-if (error === 'email_taken') msg.textContent = 'Email already registered.';
+if (error === 'mismatch'){
+    msg.style.color = 'var(--danger)';
+    msg.textContent = 'Passwords do not match.';
+}
+if (error === 'email_taken'){
+    msg.style.color = 'var(--danger)';
+    msg.textContent = 'Email already registered.';
+}
 
 document.querySelectorAll('.toggle-password').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -20,6 +26,14 @@ document.querySelectorAll('.toggle-password').forEach(btn => {
 });
 
 const passwordInput = document.getElementById('password');
+
+const nameInput = document.querySelector('input[name="name"]');
+const emailInput = document.querySelector('input[type="email"]');
+const confirmInput = document.getElementById('confirm-password');
+
+const nameError = document.getElementById('name-error');
+const emailError = document.getElementById('email-error');
+const confirmError = document.getElementById('confirm-error');
 
 const segments = [
     document.getElementById('seg1'),
@@ -44,6 +58,33 @@ passwordInput.addEventListener('input', () => {
     segments.forEach((seg, i) => {
         seg.style.backgroundColor = i < level ? colors[level] : '';
     });
-    strengthLabel.textContent = labels[level];
+
     strengthLabel.style.color = colors[level];
+    strengthLabel.textContent = level ===0  ? '' : labels[level];
+
+});
+
+
+nameInput.addEventListener('blur', () => {
+    if (nameInput.value.trim().length < 2) {
+        nameError.textContent = 'Name must be at least 2 characters.';
+    } else {
+        nameError.textContent = '';
+    }
+});
+
+emailInput.addEventListener('blur', () => {
+    if (!emailInput.value.includes('@')) {
+        emailError.textContent = 'Please enter a valid email.';
+    } else {
+        emailError.textContent = '';
+    }
+});
+
+confirmInput.addEventListener('blur', () => {
+    if (confirmInput.value !== passwordInput.value) {
+        confirmError.textContent = 'Passwords do not match.';
+    } else {
+        confirmError.textContent = '';
+    }
 });
