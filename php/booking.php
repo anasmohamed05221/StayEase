@@ -122,13 +122,15 @@ if ($action === 'create') {
 
     // Basic validation: all required fields must exist.
     if (!$room_id || !$check_in || !$check_out) {
-        die('Missing booking data.');
+        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('Missing booking data.'));
+        exit;
     }
 
     // Server-side date validation.
     // Check-out must be after check-in.
     if (strtotime($check_out) <= strtotime($check_in)) {
-        die('Check-out date must be after check-in date.');
+        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('Check-out date must be after check-in date.'));
+        exit;
     }
 
     // Check that the selected room exists and is available.
@@ -138,12 +140,14 @@ if ($action === 'create') {
 
     // If room does not exist.
     if (!$room) {
-        die('Room not found.');
+        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('Room not found.'));
+        exit;
     }
 
     // If room is not available.
     if ((int)$room['is_available'] !== 1) {
-        die('This room is unavailable.');
+        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('This room is unavailable.'));
+        exit;
     }
 
     /*
@@ -175,7 +179,8 @@ if ($action === 'create') {
 
     // If overlapping booking exists, reject the new booking.
     if ($overlap) {
-        die('This room is already booked for the selected dates.');
+        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('This room is already booked for the selected dates.'));
+        exit;
     }
 
     // Insert the booking into the database.

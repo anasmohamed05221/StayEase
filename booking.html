@@ -254,6 +254,8 @@
 <script>
   const params = new URLSearchParams(window.location.search);
   const roomId = params.get("room_id");
+  const urlError = params.get("error");
+  if (urlError) document.addEventListener("DOMContentLoaded", () => showError(urlError));
 
   const roomCard = document.getElementById("roomCard");
   const roomIdInput = document.getElementById("roomIdInput");
@@ -355,8 +357,6 @@
     }
   }
 
-  checkIn.addEventListener("change", calculatePrice);
-  checkOut.addEventListener("change", calculatePrice);
 
   document.getElementById("bookingForm").addEventListener("submit", function(e) {
     calculatePrice();
@@ -382,13 +382,9 @@
   loadRoom();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script>
-    flatpickr("#checkIn", {
-      minDate: "today"
-    });
-    flatpickr("#checkOut", {
-      minDate: "today"
-    });
+<script>
+  flatpickr("#checkIn",  { minDate: "today", onChange: calculatePrice });
+  flatpickr("#checkOut", { minDate: "today", onChange: calculatePrice });
 </script>
 
 </body>
