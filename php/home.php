@@ -9,7 +9,7 @@ $stmt = $pdo->query("
     LEFT JOIN rooms r ON r.hotel_id = h.id AND r.is_available = 1
     LEFT JOIN reviews rv ON rv.hotel_id = h.id
     GROUP BY h.id, h.name, h.city, h.image, h.stars
-    ORDER BY avg_rating DESC
+    ORDER BY avg_rating DESC, RAND()
     LIMIT 4
 ");
 
