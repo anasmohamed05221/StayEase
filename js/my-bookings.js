@@ -54,7 +54,11 @@ function loadBookings() {
                         </div>
                         ${b.can_cancel
                             ? `<button class="cancel-btn" onclick="cancelBooking(${b.id})">Cancel</button>`
-                            : `<span class="no-action">—</span>`
+                            : ``
+                        }
+                        ${b.display_status === 'past'
+                            ? `<a class="review-btn" href="reviews_page.php?hotel_id=${b.hotel_id}">Write a Review</a>`
+                            : ``
                         }
                     </div>
                 </div>

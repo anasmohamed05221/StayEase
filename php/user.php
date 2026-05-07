@@ -27,6 +27,7 @@ if ($action === 'bookings') {
             rooms.name        AS room_name,
             rooms.type        AS room_type,
             rooms.price_per_night,
+            hotels.id         AS hotel_id,
             hotels.name       AS hotel_name,
             hotels.city       AS hotel_city,
             hotels.image      AS hotel_image,

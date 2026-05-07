@@ -27,7 +27,6 @@ if (!isset($_SESSION['user_id'])) {
       <div class="nav-links">
         <a href="index.php" class="active">Home</a>
         <a href="search-results.php">Discover</a>
-        <a href="reviews_page.php">Reviews</a>
         <a href="about.html">About us</a>
       </div>
       <div class="nav-auth">
