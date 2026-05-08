@@ -56,7 +56,7 @@ fetch(`php/hotels.php?action=hotel&hotel_id=${hotelId}`)
     document.getElementById('hotelCity').textContent = h.city;
     document.getElementById('hotelDesc').textContent = h.description;
     document.getElementById('hotelStars').textContent = stars(h.stars);
-    document.getElementById('reviewsLink').href = `reviews.html?hotel_id=${hotelId}`;
+    document.getElementById('reviewsLink').href = `reviews_page.php?hotel_id=${hotelId}`;
     document.getElementById('hotelCover').style.backgroundImage = `linear-gradient(90deg, rgba(15,23,42,.75), rgba(15,23,42,.15)), url('${h.image || 'assets/images/hotel1.jpg'}')`;
 
     showRooms();
