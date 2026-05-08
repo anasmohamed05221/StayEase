@@ -7,13 +7,6 @@ body {
     margin: 0px;
 }
 
-.logo {
-    color: var(--white);
-    font-size: 22px;
-    font-weight: 800;
-    text-decoration: none;
-}
-
 .page-content {
     display: flex;
     justify-content: center;
@@ -57,10 +50,9 @@ body {
     margin-bottom: 12px;
 }
 
-/* Input with icon */
 .input-group{
     position:relative;
-     margin-bottom: 16px;
+    margin-bottom: 16px;
 }
 
 .input-group i{
@@ -214,7 +206,6 @@ button:active{
     font-size: 14px;
     font-style: italic;
     opacity: 1;
-    margin: auto;
 }
 
 @media (max-width: 480px) {

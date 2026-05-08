@@ -102,10 +102,9 @@
             </div>
         </div>
     </div>
+    
     <script src="js/register.js"></script>
-<script>
-  fetch("php/auth.php?action=session").then(r=>r.json()).then(d=>{if(d.user_name)document.getElementById("navUser").textContent=d.user_name;});
-</script>
+
 </body>
 
 </html>

@@ -65,7 +65,6 @@ async function loadRoom() {
     roomCard.innerHTML = `<div class="error-box">No room selected. Please go back and choose a room first.</div>`;
     return;
   }
-
   try {
     const response = await fetch(`php/booking.php?action=room&room_id=${encodeURIComponent(roomId)}`);
     const data = await response.json();

@@ -60,7 +60,7 @@ passwordInput.addEventListener('input', () => {
     });
 
     strengthLabel.style.color = colors[level];
-    strengthLabel.textContent = level ===0  ? '' : labels[level];
+    strengthLabel.textContent = level === 0  ? '' : labels[level];
 
 });
 
