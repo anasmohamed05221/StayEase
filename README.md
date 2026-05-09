@@ -1,6 +1,6 @@
 ![StayEase](assets/images/logo.png)
 
-> A modern hotel discovery & booking platform — search hotels, explore rooms, and manage your stays with ease.
+A modern hotel discovery and booking platform. Search hotels, explore rooms, and manage your stays.
 
 ---
 
@@ -13,10 +13,10 @@ StayEase is a full-stack web application built with plain HTML, CSS, and PHP. Us
 ## Features
 
 - User registration and login with secure password hashing
-- Search hotels by city with dynamic results
+- Search hotels by name/city/location with dynamic paginated results, and filtering/sorting features
 - Hotel detail pages with room listings and average review rating
 - Room detail pages with full description and pricing
-- Booking system with date validation and availability checks
+- Booking system with date validation and overlap checks
 - User dashboard with booking history and cancellation
 - Hotel reviews with rating system (one review per user per hotel)
 
@@ -38,11 +38,51 @@ StayEase is a full-stack web application built with plain HTML, CSS, and PHP. Us
 
 ```
 stayease/
-├── css/                  # One CSS file per member
-├── php/                  # PHP logic + shared config
 ├── assets/images/        # Hotel and room images
-└── *.html                # 12 pages across 6 members
+├── css/                  # One CSS file per member
+├── database/
+│   └── schema.sql        # Database schema
+├── js/                   # JavaScript files
+├── php/                  # PHP logic and shared config
+│   └── config.php        # DB connection (host, name, user, password)
+└── *.html / *.php        # Page files
 ```
+
+---
+
+## Getting Started
+
+### Requirements
+
+- [XAMPP](https://www.apachefriends.org/) (includes Apache, MySQL, PHP)
+
+### Setup
+
+1. **Clone the repo** into your XAMPP `htdocs` folder:
+   ```
+   git clone <repo-url> C:\xampp\htdocs\StayEase-Web
+   ```
+
+2. **Start XAMPP** and turn on the **Apache** and **MySQL** modules.
+
+3. **Create the database:**
+   - Open [phpMyAdmin](http://localhost/phpmyadmin)
+   - Create a new database named `stayease_db`
+   - Select it, go to the **SQL** tab, paste the contents of `database/schema.sql`, and run it
+
+4. **Check the DB credentials** in [php/config.php](php/config.php):
+   ```php
+   define('DB_HOST', 'localhost');
+   define('DB_NAME', 'stayease_db');
+   define('DB_USER', 'root');
+   define('DB_PASS', '');  // default XAMPP has no password
+   ```
+   Update these if your MySQL setup differs.
+
+5. **Open the app** in your browser:
+   ```
+   http://localhost/StayEase-Web/
+   ```
 
 ---
 
@@ -50,22 +90,12 @@ stayease/
 
 | Name            | Responsibility              |
 |-----------------|-----------------------------|
-| Anas Mohamed    | Authentication & DB setup   |
-| Mohamed Gamil   | Homepage & hotel search     |
-| Tarek Elsayed   | Hotel detail & room pages   |
+| Anas Mohamed    | Authentication and DB setup |
+| Mohamed Gamil   | Homepage and hotel search   |
+| Tarek Elsayed   | Hotel detail and room pages |
 | Mohsen Mohamed  | Booking flow                |
 | Yassin Abdullah | User dashboard              |
-| Ahmed Tarig     | Reviews & about page        |
-
----
-
-## Getting Started
-
-1. Clone the repo
-2. Import the database schema into MySQL as `stayease_db`
-3. Update credentials in `php/config.php` if needed
-4. Serve via XAMPP or any local PHP server
-5. Open `index.html` to get started
+| Ahmed Tarig     | Reviews and about page      |
 
 ---
 
