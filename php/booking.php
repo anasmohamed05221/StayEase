@@ -122,14 +122,14 @@ if ($action === 'create') {
 
     // Basic validation: all required fields must exist.
     if (!$room_id || !$check_in || !$check_out) {
-        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('Missing booking data.'));
+        header('Location: ../booking.php?room_id=' . urlencode($room_id) . '&error=' . urlencode('Missing booking data.'));
         exit;
     }
 
     // Server-side date validation.
     // Check-out must be after check-in.
     if (strtotime($check_out) <= strtotime($check_in)) {
-        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('Check-out date must be after check-in date.'));
+        header('Location: ../booking.php?room_id=' . urlencode($room_id) . '&error=' . urlencode('Check-out date must be after check-in date.'));
         exit;
     }
 
@@ -140,13 +140,13 @@ if ($action === 'create') {
 
     // If room does not exist.
     if (!$room) {
-        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('Room not found.'));
+        header('Location: ../booking.php?room_id=' . urlencode($room_id) . '&error=' . urlencode('Room not found.'));
         exit;
     }
 
     // If room is not available.
     if ((int)$room['is_available'] !== 1) {
-        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('This room is unavailable.'));
+        header('Location: ../booking.php?room_id=' . urlencode($room_id) . '&error=' . urlencode('This room is unavailable.'));
         exit;
     }
 
@@ -179,7 +179,7 @@ if ($action === 'create') {
 
     // If overlapping booking exists, reject the new booking.
     if ($overlap) {
-        header('Location: ../booking.html?room_id=' . urlencode($room_id) . '&error=' . urlencode('This room is already booked for the selected dates.'));
+        header('Location: ../booking.php?room_id=' . urlencode($room_id) . '&error=' . urlencode('This room is already booked for the selected dates.'));
         exit;
     }
 
@@ -206,7 +206,42 @@ if ($action === 'create') {
 
 /*
 |--------------------------------------------------------------------------
-| ACTION 3: Get booking confirmation data
+| ACTION 3: Check room availability for given dates
+|--------------------------------------------------------------------------
+| Called by JS whenever the user picks dates on the booking page.
+| Returns whether the room is free (no overlapping confirmed bookings).
+*/
+if ($action === 'check') {
+
+    $room_id  = $_GET['room_id']   ?? null;
+    $check_in  = $_GET['check_in']  ?? null;
+    $check_out = $_GET['check_out'] ?? null;
+
+    if (!$room_id || !$check_in || !$check_out) {
+        send_json(['success' => false, 'message' => 'Missing parameters.']);
+    }
+
+    if (strtotime($check_out) <= strtotime($check_in)) {
+        send_json(['success' => true, 'available' => false, 'reason' => 'Check-out must be after check-in.']);
+    }
+
+    $stmt = $pdo->prepare("
+        SELECT id FROM bookings
+        WHERE room_id = ?
+        AND status != 'cancelled'
+        AND check_in < ?
+        AND check_out > ?
+        LIMIT 1
+    ");
+    $stmt->execute([$room_id, $check_out, $check_in]);
+    $overlap = $stmt->fetch();
+
+    send_json(['success' => true, 'available' => !$overlap]);
+}
+
+/*
+|--------------------------------------------------------------------------
+| ACTION 4: Get booking confirmation data
 |--------------------------------------------------------------------------
 | This action is used by booking-confirm.html.
 | It loads the booking details after successful booking.

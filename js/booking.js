@@ -15,12 +15,57 @@ const basePrice = document.getElementById("basePrice");
 const serviceFee = document.getElementById("serviceFee");
 const totalPrice = document.getElementById("totalPrice");
 const bookingError = document.getElementById("bookingError");
+const payBtn = document.querySelector(".pay-btn");
 
 let pricePerNight = 0;
 const cleaning = 45;
+let roomIsAvailable = false;
 
 function showError(message) {
   bookingError.textContent = message;
+}
+
+function setAvailabilityBadge(state) {
+  let badge = document.getElementById("availabilityBadge");
+  if (!badge) {
+    badge = document.createElement("p");
+    badge.id = "availabilityBadge";
+    badge.style.cssText = "margin-top:10px;font-weight:600;font-size:0.9rem;";
+    checkOut.closest(".date-grid").after(badge);
+  }
+  if (state === "available") {
+    badge.textContent = "✓ Room is available for these dates";
+    badge.style.color = "#16a34a";
+    payBtn.disabled = false;
+    payBtn.style.opacity = "1";
+  } else if (state === "unavailable") {
+    badge.textContent = "✗ Room is already booked for these dates";
+    badge.style.color = "#dc2626";
+    payBtn.disabled = true;
+    payBtn.style.opacity = "0.5";
+  } else {
+    badge.textContent = "";
+    payBtn.disabled = false;
+    payBtn.style.opacity = "1";
+  }
+}
+
+async function checkAvailability() {
+  if (!roomIdInput.value || !checkIn.value || !checkOut.value) return;
+  if (new Date(checkOut.value) <= new Date(checkIn.value)) return;
+
+  try {
+    const response = await fetch(
+      `php/booking.php?action=check&room_id=${encodeURIComponent(roomIdInput.value)}&check_in=${encodeURIComponent(checkIn.value)}&check_out=${encodeURIComponent(checkOut.value)}`
+    );
+    const data = await response.json();
+    if (!data.success) return;
+
+    roomIsAvailable = data.available;
+    setAvailabilityBadge(data.available ? "available" : "unavailable");
+  } catch {
+    // silently ignore network errors — server-side overlap check still guards
+  }
 }
 
 function calculatePrice() {
@@ -34,6 +79,8 @@ function calculatePrice() {
     basePrice.textContent = "0.00";
     serviceFee.textContent = "0.00";
     totalPrice.textContent = "0.00";
+    setAvailabilityBadge("reset");
+    roomIsAvailable = false;
     return;
   }
 
@@ -47,6 +94,8 @@ function calculatePrice() {
     serviceFee.textContent = "0.00";
     totalPrice.textContent = "0.00";
     showError("Check-out date must be after check-in date.");
+    setAvailabilityBadge("reset");
+    roomIsAvailable = false;
     return;
   }
 
@@ -58,6 +107,8 @@ function calculatePrice() {
   basePrice.textContent = base.toFixed(2);
   serviceFee.textContent = service.toFixed(2);
   totalPrice.textContent = total.toFixed(2);
+
+  checkAvailability();
 }
 
 async function loadRoom() {
@@ -118,6 +169,12 @@ document.getElementById("bookingForm").addEventListener("submit", function(e) {
   if (new Date(checkOut.value) <= new Date(checkIn.value)) {
     e.preventDefault();
     showError("Check-out date must be after check-in date.");
+    return;
+  }
+
+  if (!roomIsAvailable) {
+    e.preventDefault();
+    showError("This room is not available for the selected dates.");
   }
 });
 
