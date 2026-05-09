@@ -31,12 +31,6 @@ function setMinDates() {
   }
 }
 
-/* =============================================================
-   FUNCTION: initSearchValidation
-   Intercepts the search form submission.
-   If check-out is not after check-in, shows an error and
-   STOPS the form from submitting (preventDefault).
-============================================================= */
 function initSearchValidation() {
   var form = document.getElementById('searchForm');
   if (!form) return; // only runs on pages that have the search form
@@ -83,19 +77,7 @@ function initSearchValidation() {
   });
 }
 
-/* =============================================================
-   FUNCTION: initResultsPageHeader
-   Reads the URL parameters on the search-results page and:
-     1. Updates the h1 with the destination city
-     2. Updates the subtitle with dates and guest count
-     3. FIXED: Computes the number of nights from check_in & check_out
-        and updates the "Price for X nights" labels on placeholder cards.
-        (When PHP is connected, this is handled server-side with DATEDIFF.)
 
-   Example URL: search-results.html?city=London&check_in=2024-10-24&check_out=2024-10-28
-   Displays: "Hotels in London"
-             "Selected dates: Oct 24 - Oct 28 · 4 nights"
-============================================================= */
 function initResultsPageHeader() {
   var titleEl    = document.getElementById('resultsTitle');
   var subtitleEl = document.getElementById('resultsSubtitle');
@@ -131,7 +113,6 @@ function initResultsPageHeader() {
     });
   }
 
-  // ── Build subtitle ───────────────────────────────────────────────────
   var subtitleParts = [];
 
   if (checkIn && checkOut) {
@@ -151,21 +132,14 @@ function initResultsPageHeader() {
   }
 }
 
-/* =============================================================
-   HELPER: formatDate
-   Converts "2024-10-24" (ISO format) to "Oct 24" (readable format)
-============================================================= */
+
 function formatDate(isoString) {
   var date   = new Date(isoString + 'T00:00:00'); // avoid timezone shift
   var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   return months[date.getMonth()] + ' ' + date.getDate();
 }
 
-/* =============================================================
-   FUNCTION: initPriceSlider
-   Makes the price range slider on search-results.html
-   update the displayed "$500" label as the user drags it.
-============================================================= */
+
 function initPriceSlider() {
   var slider   = document.getElementById('priceRange');
   var maxLabel = document.getElementById('priceMax');
@@ -176,11 +150,6 @@ function initPriceSlider() {
   });
 }
 
-/* =============================================================
-   FUNCTION: initWishlistButtons
-   Toggles the heart icon between outlined and filled
-   when the user clicks the wishlist button on a hotel card.
-============================================================= */
 function initWishlistButtons() {
   var buttons = document.querySelectorAll('.wishlist-btn');
 
@@ -208,13 +177,8 @@ function initWishlistButtons() {
   });
 }
 
-/* =============================================================
-   FUNCTION: initSortRedirect
-   When the user changes the "Sort by" dropdown on the results page,
-   re-submit the current URL with the updated sort parameter so
-   search.php can re-run the query with the correct ORDER BY.
-   FIXED: "popularity" option was removed — it had no matching DB column.
-============================================================= */
+
+
 function initSortRedirect() {
   var sortSelect = document.getElementById('sortBy');
   if (!sortSelect) return;

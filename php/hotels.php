@@ -1,3 +1,4 @@
+
 <?php
 // Very simple Member 3 PHP file: returns hotel details or room details as JSON.
 
